@@ -16,3 +16,12 @@ dependency-reduced-pom.xml
 README.html
 *.iml
 .idea
+.mvn
+gradle/wrapper
+build.gradle
+gradlew
+gradlew.bat
+mvnv
+mvnd.cmd
+settings.gradle
+manifest.yml
