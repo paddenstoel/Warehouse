@@ -1,0 +1,8 @@
+spring:
+  jpa:
+    properties:
+      hibernate.default_schema: warehouse
+  datasource:
+    url: jdbc:postgresql://localhost:5432/warehouse
+    username: postgres
+    password: postgres
