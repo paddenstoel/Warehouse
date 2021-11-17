@@ -1,6 +1,6 @@
 package com.petproject.warehouse.controllers;
 
-import com.petproject.warehouse.dao.entities.Customer;
+import com.petproject.warehouse.dto.CustomerDto;
 import com.petproject.warehouse.services.CustomerService;
 import lombok.Getter;
 import lombok.Setter;
@@ -42,20 +42,11 @@ public class CustomerController {
         return new ResponseEntity<>("Hello World", HttpStatus.OK);
     }
 
-    /*
-     * POST /customer/saveAndResponse
-     * POST /customer/
-     *
-     * GET  /customer/filter&firstletter=?
-     * RequestVariable
-     *
-     * */
-
     @GetMapping("/filter/firstLetter")
     @ResponseBody
     public ResponseEntity<?> getCustomersByFirstLetter(@RequestParam String firstLetter) {
         log.info("Customer Controller's filterByFirstName method started working...");
-        List<Customer> customers = customerService.findCustomersByFirstName(firstLetter);
+        List<CustomerDto> customers = customerService.findCustomersByFirstName(firstLetter);
         return new ResponseEntity<>(customers, HttpStatus.OK);
     }
 
@@ -63,7 +54,7 @@ public class CustomerController {
     @ResponseBody
     public ResponseEntity<?> getCustomersByAddressIsNull() {
         log.info("Customer Controller's filterByAddressIsNull method started working...");
-        List<Customer> customers = customerService.findCustomersByCustomerAddressIsNull();
+        List<CustomerDto> customers = customerService.findCustomersByCustomerAddressIsNull();
         return new ResponseEntity<>(customers, HttpStatus.OK);
     }
 
@@ -71,7 +62,7 @@ public class CustomerController {
     @ResponseBody
     public ResponseEntity<?> getCustomersByLastNameGreaterThan(@RequestParam String lastName) {
         log.info("Customer Controller's filterByLastNameGreaterThan method started working...");
-        List<Customer> customers = customerService.findCustomersByLastNameGreaterThan(lastName);
+        List<CustomerDto> customers = customerService.findCustomersByLastNameGreaterThan(lastName);
         return new ResponseEntity<>(customers, HttpStatus.OK);
     }
 

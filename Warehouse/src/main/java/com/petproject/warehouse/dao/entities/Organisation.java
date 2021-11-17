@@ -1,6 +1,7 @@
 package com.petproject.warehouse.dao.entities;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.UUID;
 @Table(name = "tr_organisations")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Organisation {
 
     @Id
@@ -30,7 +32,7 @@ public class Organisation {
     @Column(name = "main_office_address")
     private String mainOfficeAddress;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "organisation_id")
     private List<Supplier> suppliers;
 }

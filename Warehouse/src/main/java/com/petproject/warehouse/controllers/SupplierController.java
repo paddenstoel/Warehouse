@@ -1,5 +1,6 @@
 package com.petproject.warehouse.controllers;
 
+import com.petproject.warehouse.dao.entities.Supplier;
 import com.petproject.warehouse.services.SupplierService;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @Log4j2
@@ -67,6 +70,14 @@ public class SupplierController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(id, HttpStatus.OK);
+    }
+
+    @GetMapping("/filter/city")
+    @ResponseBody
+    public ResponseEntity<?> findByCityLike(@RequestParam String city) {
+        log.info("Supplier Controller's findByCityLike method started working...");
+        List<Supplier> suppliers = supplierService.findSuppliersByCityLike(city);
+        return new ResponseEntity<>(suppliers, HttpStatus.OK);
     }
 
     @Getter

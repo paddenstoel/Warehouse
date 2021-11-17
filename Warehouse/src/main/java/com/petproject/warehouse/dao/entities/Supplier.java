@@ -1,6 +1,7 @@
 package com.petproject.warehouse.dao.entities;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.UUID;
 @Table(name = "tr_suppliers")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Supplier {
 
     @Id
@@ -30,11 +32,11 @@ public class Supplier {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "organisation_id")
     private Organisation organisation;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "supplier_id")
     private List<Product> products;
 }
