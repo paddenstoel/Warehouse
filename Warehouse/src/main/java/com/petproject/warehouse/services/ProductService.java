@@ -68,6 +68,12 @@ public class ProductService {
         return productRepository.save(product).getId();
     }
 
+    public UUID update(ProductDto productDto) {
+        Product product = productRepository.findById(productDto.getId())
+                .orElseThrow(() -> new IllegalStateException("No Product with id: " + productDto.getId()));
+        return productRepository.save(product).getId();
+    }
+
     public void delete(UUID id) throws NotFoundException {
         Product product = productRepository.findById(id).orElseThrow(() -> new NotFoundException("No Product with id: " + id));
         productRepository.deleteById(id);

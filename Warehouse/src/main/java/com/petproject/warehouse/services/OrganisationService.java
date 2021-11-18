@@ -68,6 +68,12 @@ public class OrganisationService {
         return organisationRepository.save(organisation).getId();
     }
 
+    public UUID update(OrganisationDto organisationDto) {
+        Organisation organisation = organisationRepository.findById(organisationDto.getId())
+                .orElseThrow(() -> new IllegalStateException("No Organisation with id: " + organisationDto.getId()));
+        return organisationRepository.save(organisation).getId();
+    }
+
     public void delete(UUID id) throws NotFoundException {
         Organisation organisation = organisationRepository.findById(id).orElseThrow(() -> new NotFoundException("No Organisation with id: " + id));
         organisationRepository.deleteById(id);

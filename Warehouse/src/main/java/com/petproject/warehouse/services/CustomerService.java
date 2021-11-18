@@ -90,6 +90,12 @@ public class CustomerService {
         return mapListToCustomerDto(list);
     }
 
+    public UUID update(CustomerDto customerDto) {
+        Customer customer = customerRepository.findById(customerDto.getId())
+                .orElseThrow(() -> new IllegalStateException("No Customer with id: " + customerDto.getId()));
+        return customerRepository.save(customer).getId();
+    }
+
     public UUID create(CustomerDto dto) {
         Customer customer = new Customer(dto.getLastName(), dto.getFirstName(), dto.getCustomerContactNumber(), dto.getCustomerAddress());
         return customerRepository.save(customer).getId();

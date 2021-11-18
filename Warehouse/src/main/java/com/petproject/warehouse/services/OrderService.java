@@ -1,7 +1,9 @@
 package com.petproject.warehouse.services;
 
 import com.petproject.warehouse.dao.OrderRepository;
+import com.petproject.warehouse.dao.entities.Customer;
 import com.petproject.warehouse.dao.entities.Order;
+import com.petproject.warehouse.dto.CustomerDto;
 import com.petproject.warehouse.dto.OrderDto;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +63,12 @@ public class OrderService {
 
     public UUID create(OrderDto dto) {
         Order order = new Order(dto.getQuantity(), dto.getOrderDate());
+        return orderRepository.save(order).getId();
+    }
+
+    public UUID update(OrderDto orderDto) {
+        Order order = orderRepository.findById(orderDto.getId())
+                .orElseThrow(() -> new IllegalStateException("No Order with id: " + orderDto.getId()));
         return orderRepository.save(order).getId();
     }
 

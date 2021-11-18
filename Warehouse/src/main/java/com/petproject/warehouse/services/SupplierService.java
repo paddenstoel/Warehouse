@@ -75,6 +75,12 @@ public class SupplierService {
         return supplierRepository.save(supplier).getId();
     }
 
+    public UUID update(SupplierDto supplierDto) {
+        Supplier supplier = supplierRepository.findById(supplierDto.getId())
+                .orElseThrow(() -> new IllegalStateException("No Supplier with id: " + supplierDto.getId()));
+        return supplierRepository.save(supplier).getId();
+    }
+
     public void delete(UUID id) throws NotFoundException {
         Supplier supplier = supplierRepository.findById(id).orElseThrow(() -> new NotFoundException("No Supplier with id: " + id));
         supplierRepository.deleteById(id);

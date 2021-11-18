@@ -2,8 +2,7 @@ package com.petproject.warehouse.controllers;
 
 import com.petproject.warehouse.dto.CustomerDto;
 import com.petproject.warehouse.services.CustomerService;
-import lombok.Getter;
-import lombok.Setter;
+import javassist.NotFoundException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @Log4j2
@@ -67,40 +67,40 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> get(@PathVariable String id) {
-        log.info("Method get of Customer controller is working");
-        return new ResponseEntity<>("Hello " + id, HttpStatus.OK);
+    public ResponseEntity<?> getById(@PathVariable UUID id) throws NotFoundException {
+        log.info("Method getById of Customer controller is working");
+        log.debug("Get Customer with id: {}", id);
+        return new ResponseEntity<>(customerService.findById(id), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<?> post(@RequestBody Test test) {
-        log.info("Method post of Customer controller is working");
-        return new ResponseEntity<>(test.getTest(), HttpStatus.OK);
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public List<CustomerDto> getAll() {
+        log.debug("Getting all Customers");
+        return customerService.findAll();
+    }
+
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public ResponseEntity<?> create(@PathVariable CustomerDto customerDto) {
+        log.info("Method create of Customer controller is working");
+        log.debug("Create new Customer: {}", customerDto);
+        customerService.create(customerDto);
+        return new ResponseEntity<>(customerDto.getId(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    @PutMapping("/")
     public @ResponseBody
-    String update(@RequestParam(value = "something") String something) {
-        log.info("Method put of Customer controller is working");
-        return "ok";
+    UUID update(@RequestParam CustomerDto customerDto) {
+        log.info("Method update of Customer controller is working");
+        log.debug("Update Customer: {}", customerDto);
+        return customerService.update(customerDto);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> delete(@PathVariable String id) {
+    public ResponseEntity<?> delete(@PathVariable UUID id) throws NotFoundException {
         log.info("Method delete of Customer controller is working");
-        boolean isRemoved = true;
-        if (!isRemoved) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        log.debug("Delete Customer with id: {}", id);
+        customerService.delete(id);
         return new ResponseEntity<>(id, HttpStatus.OK);
-    }
-
-    @Getter
-    @Setter
-    private static class Test {
-        private String test;
-
     }
 
 }
