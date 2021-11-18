@@ -23,6 +23,13 @@ public class Product {
     @Column(name = "name")
     private String name;
 
+    public Product(String name, double price, String productUnit, int volume) {
+        this.name = name;
+        this.price = price;
+        this.productUnit = productUnit;
+        this.volume = volume;
+    }
+
     @Column(name = "price")
     private double price;
 

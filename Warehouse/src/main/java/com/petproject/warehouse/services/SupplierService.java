@@ -3,11 +3,14 @@ package com.petproject.warehouse.services;
 import com.petproject.warehouse.dao.SupplierRepository;
 import com.petproject.warehouse.dao.entities.Supplier;
 import com.petproject.warehouse.dto.SupplierDto;
+import javassist.NotFoundException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Log4j2
@@ -43,6 +46,38 @@ public class SupplierService {
         supplierEntity.setContactPersonName(dto.getContactPersonName());
         supplierEntity.setPhoneNumber(dto.getPhoneNumber());
         return supplierEntity;
+    }
+
+    private List<SupplierDto> mapListToSupplierDto(List<Supplier> supplierList) {
+        List<SupplierDto> dtoList = new ArrayList<>();
+        for (Supplier s : supplierList) {
+            dtoList.add(mapToSupplierDto(s));
+        }
+        return dtoList;
+    }
+
+    public SupplierDto findById(UUID id) throws NotFoundException {
+        Supplier supplier = supplierRepository.findById(id).orElseThrow(() -> new NotFoundException("No Supplier with id: " + id));
+        return mapToSupplierDto(supplier);
+    }
+
+    public List<SupplierDto> findAll() {
+        Iterable<Supplier> iterable = supplierRepository.findAll();
+        List<Supplier> list = new ArrayList<>();
+        for (Supplier s : iterable) {
+            list.add(s);
+        }
+        return mapListToSupplierDto(list);
+    }
+
+    public UUID create(SupplierDto dto) {
+        Supplier supplier = new Supplier(dto.getContactPersonName(), dto.getCity(), dto.getCountry(), dto.getPhoneNumber());
+        return supplierRepository.save(supplier).getId();
+    }
+
+    public void delete(UUID id) throws NotFoundException {
+        Supplier supplier = supplierRepository.findById(id).orElseThrow(() -> new NotFoundException("No Supplier with id: " + id));
+        supplierRepository.deleteById(id);
     }
 }
 

@@ -36,4 +36,10 @@ public class Customer {
     @JoinColumn(name = "customer_id")
     private List<Order> orders;
 
+    public Customer(String lastName, String firstName, String customerContactNumber, String customerAddress) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.customerContactNumber = customerContactNumber;
+        this.customerAddress = customerAddress;
+    }
 }

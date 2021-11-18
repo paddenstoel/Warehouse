@@ -34,4 +34,8 @@ public class Order {
     @ManyToMany(mappedBy = "orders", fetch = FetchType.LAZY)
     private List<Product> products;
 
+    public Order(int quantity, Date orderDate) {
+        this.quantity = quantity;
+        this.orderDate = orderDate;
+    }
 }

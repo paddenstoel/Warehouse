@@ -3,11 +3,14 @@ package com.petproject.warehouse.services;
 import com.petproject.warehouse.dao.CustomerRepository;
 import com.petproject.warehouse.dao.entities.Customer;
 import com.petproject.warehouse.dto.CustomerDto;
+import javassist.NotFoundException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -65,4 +68,35 @@ public class CustomerService {
         return customerEntity;
     }
 
+    private List<CustomerDto> mapListToCustomerDto(List<Customer> customerList) {
+        List<CustomerDto> dtoList = new ArrayList<>();
+        for (Customer c : customerList) {
+            dtoList.add(mapToCustomerDto(c));
+        }
+        return dtoList;
+    }
+
+    public CustomerDto findById(UUID id) throws NotFoundException {
+        Customer customer = customerRepository.findById(id).orElseThrow(() -> new NotFoundException("No Customer with id: " + id));
+        return mapToCustomerDto(customer);
+    }
+
+    public List<CustomerDto> findAll() {
+        Iterable<Customer> iterable = customerRepository.findAll();
+        List<Customer> list = new ArrayList<>();
+        for (Customer c : iterable) {
+            list.add(c);
+        }
+        return mapListToCustomerDto(list);
+    }
+
+    public UUID create(CustomerDto dto) {
+        Customer customer = new Customer(dto.getLastName(), dto.getFirstName(), dto.getCustomerContactNumber(), dto.getCustomerAddress());
+        return customerRepository.save(customer).getId();
+    }
+
+    public void delete(UUID id) throws NotFoundException {
+        Customer customer = customerRepository.findById(id).orElseThrow(() -> new NotFoundException("No Customer with id: " + id));
+        customerRepository.deleteById(id);
+    }
 }

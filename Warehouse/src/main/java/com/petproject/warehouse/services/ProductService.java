@@ -3,8 +3,13 @@ package com.petproject.warehouse.services;
 import com.petproject.warehouse.dao.ProductRepository;
 import com.petproject.warehouse.dao.entities.Product;
 import com.petproject.warehouse.dto.ProductDto;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ProductService {
@@ -34,5 +39,37 @@ public class ProductService {
         productEntity.setVolume(dto.getVolume());
         productEntity.setName(dto.getName());
         return productEntity;
+    }
+
+    private List<ProductDto> mapListToProductDto(List<Product> productList) {
+        List<ProductDto> dtoList = new ArrayList<>();
+        for (Product p : productList) {
+            dtoList.add(mapToProductDto(p));
+        }
+        return dtoList;
+    }
+
+    public ProductDto findById(UUID id) throws NotFoundException {
+        Product product = productRepository.findById(id).orElseThrow(() -> new NotFoundException("No Product with id: " + id));
+        return mapToProductDto(product);
+    }
+
+    public List<ProductDto> findAll() {
+        Iterable<Product> iterable = productRepository.findAll();
+        List<Product> list = new ArrayList<>();
+        for (Product p : iterable) {
+            list.add(p);
+        }
+        return mapListToProductDto(list);
+    }
+
+    public UUID create(ProductDto dto) {
+        Product product = new Product(dto.getName(), dto.getPrice(), dto.getProductUnit(), dto.getVolume());
+        return productRepository.save(product).getId();
+    }
+
+    public void delete(UUID id) throws NotFoundException {
+        Product product = productRepository.findById(id).orElseThrow(() -> new NotFoundException("No Product with id: " + id));
+        productRepository.deleteById(id);
     }
 }

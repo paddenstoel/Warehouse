@@ -15,6 +15,13 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Organisation {
 
+    public Organisation(String organisationName, String country, String phoneNumber, String mainOfficeAddress) {
+        this.organisationName = organisationName;
+        this.country = country;
+        this.phoneNumber = phoneNumber;
+        this.mainOfficeAddress = mainOfficeAddress;
+    }
+
     @Id
     @GeneratedValue
     @Column(name = "id")

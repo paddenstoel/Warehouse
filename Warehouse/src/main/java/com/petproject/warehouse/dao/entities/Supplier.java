@@ -39,4 +39,11 @@ public class Supplier {
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "supplier_id")
     private List<Product> products;
+
+    public Supplier(String contactPersonName, String city, String country, String phoneNumber) {
+        this.contactPersonName = contactPersonName;
+        this.city = city;
+        this.country = country;
+        this.phoneNumber = phoneNumber;
+    }
 }
