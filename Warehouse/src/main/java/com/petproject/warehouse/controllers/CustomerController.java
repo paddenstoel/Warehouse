@@ -39,7 +39,7 @@ public class CustomerController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity<?> get() {
         log.info("Method get of Customer controller is working");
-        return new ResponseEntity<>("Hello World", HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/filter/firstLetter")

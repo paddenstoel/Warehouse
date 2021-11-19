@@ -36,6 +36,14 @@ public class SupplierController {
         return "Howdy! Check out the Logs to see the output...";
     }
 
+    @GetMapping("/filter/city")
+    @ResponseBody
+    public ResponseEntity<?> getSuppliersByCityLike(@RequestParam String city) {
+        log.info("Supplier Controller's getSuppliersByCityLike method started working...");
+        List<SupplierDto> suppliers = supplierService.findSuppliersByCityLike(city);
+        return new ResponseEntity<>(suppliers, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getById(@PathVariable UUID id) throws NotFoundException {
         log.info("Method getById of Supplier controller is working");
