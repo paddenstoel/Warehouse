@@ -52,22 +52,23 @@ public class SupplierController {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public List<SupplierDto> getAll() {
+    public ResponseEntity<?> getAll() {
+        log.info("Method getAll of Supplier controller is working");
         log.debug("Getting all Suppliers");
-        return supplierService.findAll();
+        return new ResponseEntity<>(supplierService.findAll(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public ResponseEntity<?> create(@PathVariable SupplierDto supplierDto) {
+    public ResponseEntity<?> create(@RequestBody SupplierDto supplierDto) {
         log.info("Method create of Supplier controller is working");
         log.debug("Create new Supplier: {}", supplierDto);
         supplierService.create(supplierDto);
         return new ResponseEntity<>(supplierDto.getId(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.PUT)
     public @ResponseBody
-    UUID update(@RequestParam SupplierDto supplierDto) {
+    UUID update(@RequestBody SupplierDto supplierDto) {
         log.info("Method put of Supplier controller is working");
         log.debug("Update Supplier: {}", supplierDto);
         return supplierService.update(supplierDto);

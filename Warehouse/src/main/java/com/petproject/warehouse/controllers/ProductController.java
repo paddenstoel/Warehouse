@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -44,9 +43,10 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public List<ProductDto> getAll() {
+    public ResponseEntity<?> getAll() {
+        log.info("Method getAll of Product controller is working");
         log.debug("Getting all Products");
-        return productService.findAll();
+        return new ResponseEntity<>(productService.findAll(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -57,9 +57,9 @@ public class ProductController {
         return new ResponseEntity<>(productDto.getId(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.PUT)
     public @ResponseBody
-    UUID update(@RequestParam ProductDto productDto) {
+    UUID update(@RequestBody ProductDto productDto) {
         log.info("Method update of Product controller is working");
         log.debug("Update Product: {}", productDto);
         return productService.update(productDto);

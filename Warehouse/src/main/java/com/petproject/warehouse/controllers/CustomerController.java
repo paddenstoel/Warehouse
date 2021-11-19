@@ -61,7 +61,7 @@ public class CustomerController {
     @GetMapping("/filter/lastNameGreaterThan")
     @ResponseBody
     public ResponseEntity<?> getCustomersByLastNameGreaterThan(@RequestParam String lastName) {
-        log.info("Customer Controller's filterByLastNameGreaterThan method started working...");
+        log.info("Customer Controller's filterByLastNameGreaterThan method started working with param lastName: {}", lastName);
         List<CustomerDto> customers = customerService.findCustomersByLastNameGreaterThan(lastName);
         return new ResponseEntity<>(customers, HttpStatus.OK);
     }
@@ -74,9 +74,10 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public List<CustomerDto> getAll() {
+    public ResponseEntity<?> getAll() {
         log.debug("Getting all Customers");
-        return customerService.findAll();
+        log.info("Customer Controller's getAll method started working");
+        return new ResponseEntity<>(customerService.findAll(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -87,9 +88,9 @@ public class CustomerController {
         return new ResponseEntity<>(customerDto.getId(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.PUT)
     public @ResponseBody
-    UUID update(@RequestParam CustomerDto customerDto) {
+    UUID update(@RequestBody CustomerDto customerDto) {
         log.info("Method update of Customer controller is working");
         log.debug("Update Customer: {}", customerDto);
         return customerService.update(customerDto);

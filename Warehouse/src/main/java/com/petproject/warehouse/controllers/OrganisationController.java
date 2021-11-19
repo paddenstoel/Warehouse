@@ -44,9 +44,10 @@ public class OrganisationController {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public List<OrganisationDto> getAll() {
+    public ResponseEntity<?> getAll() {
         log.debug("Getting all Organisations");
-        return organisationService.findAll();
+        log.info("Method getAll of Organisation controller is working");
+        return new ResponseEntity<>(organisationService.findAll(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -57,9 +58,9 @@ public class OrganisationController {
         return new ResponseEntity<>(organisationDto.getId(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.PUT)
     public @ResponseBody
-    UUID update(@RequestParam OrganisationDto organisationDto) {
+    UUID update(@RequestBody OrganisationDto organisationDto) {
         log.info("Method update of Organisation controller is working");
         log.debug("Update Organisation: {}", organisationDto);
         return organisationService.update(organisationDto);

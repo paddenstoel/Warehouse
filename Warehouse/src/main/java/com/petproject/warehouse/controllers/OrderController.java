@@ -44,9 +44,10 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public List<OrderDto> getAll() {
+    public ResponseEntity<?> getAll() {
         log.debug("Getting all Orders");
-        return orderService.findAll();
+        log.info("Method getAll of Order controller is working\"");
+        return new ResponseEntity<>(orderService.findAll(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -57,9 +58,9 @@ public class OrderController {
         return new ResponseEntity<>(orderDto.getId(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.PUT)
     public @ResponseBody
-    UUID update(@RequestParam OrderDto orderDto) {
+    UUID update(@RequestBody OrderDto orderDto) {
         log.info("Method put of Order controller is working");
         log.debug("Update Order: {}", orderDto);
         return orderService.update(orderDto);
