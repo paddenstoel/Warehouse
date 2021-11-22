@@ -48,6 +48,14 @@ public class CustomerService {
                 .collect(Collectors.toList());
     }
 
+    public List<CustomerDto> findCustomersByBirthDayDate() {
+        log.info("Method findCustomersByBirthDayDate was called without parameters");
+        List<Customer> customers = customerRepository.findCustomersByBirthDayDate();
+        return customers.stream()
+                .map(this::mapToCustomerDto)
+                .collect(Collectors.toList());
+    }
+
     public CustomerDto mapToCustomerDto(Customer customerEntity) {
         CustomerDto dto = new CustomerDto();
         dto.setId(customerEntity.getId());

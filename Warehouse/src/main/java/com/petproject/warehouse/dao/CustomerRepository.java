@@ -1,6 +1,7 @@
 package com.petproject.warehouse.dao;
 
 import com.petproject.warehouse.dao.entities.Customer;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,5 +19,10 @@ public interface CustomerRepository extends CrudRepository<Customer, UUID> {
 
     //TODO получить всех у кого фамилия длинее 5 символов
     List<Customer> findByLastNameGreaterThan(String lastName);
+
+    @Query(
+            value = "select * from warehouse.tr_customers c where c.birth_day_date = now()::date",
+            nativeQuery = true)
+    List<Customer> findCustomersByBirthDayDate();
 
 }

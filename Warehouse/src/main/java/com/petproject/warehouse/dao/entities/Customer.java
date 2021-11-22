@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,6 +32,9 @@ public class Customer {
 
     @Column(name = "customer_address")
     private String customerAddress;
+
+    @Column(name = "birth_day_date")
+    private Date birthDayDate;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")

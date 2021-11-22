@@ -66,6 +66,14 @@ public class CustomerController {
         return new ResponseEntity<>(customers, HttpStatus.OK);
     }
 
+    @GetMapping("/filter/birthDay")
+    @ResponseBody
+    public ResponseEntity<?> getCustomersByBirthDayDate() {
+        log.info("Customer Controller's filterCustomersByBirthDayDate method started working without params");
+        List<CustomerDto> customers = customerService.findCustomersByBirthDayDate();
+        return new ResponseEntity<>(customers, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getById(@PathVariable UUID id) throws NotFoundException {
         log.info("Method getById of Customer controller is working");

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Getter
@@ -20,5 +21,7 @@ public class CustomerDto {
     private String customerContactNumber;
 
     private String customerAddress;
+
+    private Date birthDayDate;
 
 }
