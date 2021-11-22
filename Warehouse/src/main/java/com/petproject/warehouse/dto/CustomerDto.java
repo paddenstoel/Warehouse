@@ -1,6 +1,5 @@
 package com.petproject.warehouse.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,7 +22,6 @@ public class CustomerDto {
 
     private String customerAddress;
 
-    @JsonFormat(pattern = "dd MMMM yyyy", locale = "ru")
     private Date birthDayDate;
 
 }

@@ -6,8 +6,6 @@ import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
-import java.time.DateTimeException;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -37,7 +35,7 @@ public class Customer {
     private String customerAddress;
 
     @Column(name = "birth_day_date")
-    //@Type(type="date")
+    @Type(type = "date")
     private Date birthDayDate;
 
     @OneToMany(fetch = FetchType.LAZY)
