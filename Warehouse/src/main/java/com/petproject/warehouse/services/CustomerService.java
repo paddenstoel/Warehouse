@@ -63,6 +63,7 @@ public class CustomerService {
         dto.setFirstName(customerEntity.getFirstName());
         dto.setCustomerContactNumber(customerEntity.getCustomerContactNumber());
         dto.setCustomerAddress(customerEntity.getCustomerAddress());
+        dto.setBirthDayDate(customerEntity.getBirthDayDate());
         return dto;
     }
 
@@ -105,7 +106,7 @@ public class CustomerService {
     }
 
     public UUID create(CustomerDto dto) {
-        Customer customer = new Customer(dto.getLastName(), dto.getFirstName(), dto.getCustomerContactNumber(), dto.getCustomerAddress());
+        Customer customer = new Customer(dto.getLastName(), dto.getFirstName(), dto.getCustomerContactNumber(), dto.getCustomerAddress(), dto.getBirthDayDate());
         return customerRepository.save(customer).getId();
     }
 

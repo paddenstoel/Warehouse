@@ -66,7 +66,7 @@ public class CustomerController {
         return new ResponseEntity<>(customers, HttpStatus.OK);
     }
 
-    @GetMapping("/filter/birthDay")
+    @GetMapping("/filter/birthday")
     @ResponseBody
     public ResponseEntity<?> getCustomersByBirthDayDate() {
         log.info("Customer Controller's filterCustomersByBirthDayDate method started working without params");

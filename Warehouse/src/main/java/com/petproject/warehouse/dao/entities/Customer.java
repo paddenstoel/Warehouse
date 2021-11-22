@@ -3,8 +3,11 @@ package com.petproject.warehouse.dao.entities;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.time.DateTimeException;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -34,16 +37,18 @@ public class Customer {
     private String customerAddress;
 
     @Column(name = "birth_day_date")
+    //@Type(type="date")
     private Date birthDayDate;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
     private List<Order> orders;
 
-    public Customer(String lastName, String firstName, String customerContactNumber, String customerAddress) {
+    public Customer(String lastName, String firstName, String customerContactNumber, String customerAddress, Date birthDayDate) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.customerContactNumber = customerContactNumber;
         this.customerAddress = customerAddress;
+        this.birthDayDate = birthDayDate;
     }
 }
