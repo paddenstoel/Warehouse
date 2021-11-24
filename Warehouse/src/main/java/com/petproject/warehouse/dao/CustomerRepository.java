@@ -24,5 +24,4 @@ public interface CustomerRepository extends CrudRepository<Customer, UUID> {
             value = "select * from warehouse.tr_customers c where c.birth_day_date = current_date",
             nativeQuery = true)
     List<Customer> findCustomersByBirthDayDate();
-
 }
