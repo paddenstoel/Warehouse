@@ -21,7 +21,7 @@ public interface CustomerRepository extends CrudRepository<Customer, UUID> {
     List<Customer> findByLastNameGreaterThan(String lastName);
 
     @Query(
-            value = "select * from warehouse.tr_customers c where c.birth_day_date = current_date",
+            value = "select * from warehouse.tr_customers c where date_part('day', c.birth_day_date) = date_part('day', current_date) AND date_part('month', c.birth_day_date) = date_part('month', current_date)",
             nativeQuery = true)
     List<Customer> findCustomersByBirthDayDate();
 }
