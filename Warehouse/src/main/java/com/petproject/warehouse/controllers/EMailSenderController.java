@@ -18,7 +18,6 @@ import java.util.List;
 
 @Log4j2
 @Controller
-@Getter
 @RequestMapping("/messages")
 public class EMailSenderController {
 
