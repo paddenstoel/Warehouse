@@ -8,11 +8,11 @@ import java.util.List;
 
 @Log4j2
 @Service
-public class EMailSender implements MessageSend {
+public class SmsSender implements MessageSend {
     @Override
     public MessageResponse send(List<CustomerDto> recipients, String text) {
         for (CustomerDto recipient : recipients) {
-            log.info("Method send in EMail sender service with params recipients: {} and text: {} is working", recipients, text);
+            log.info("Method send in SMS sender service with params recipients: {} and text: {} is working", recipients, text);
             log.info("Message " + text + " was sent to " + recipient.getFirstName());
         }
         return new MessageResponse(MessageCode.SENT);

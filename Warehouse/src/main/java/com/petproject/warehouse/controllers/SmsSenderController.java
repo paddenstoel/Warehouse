@@ -2,8 +2,8 @@ package com.petproject.warehouse.controllers;
 
 import com.petproject.warehouse.dto.CustomerDto;
 import com.petproject.warehouse.services.CustomerService;
-import com.petproject.warehouse.services.EMailSender;
 import com.petproject.warehouse.services.MessageResponse;
+import com.petproject.warehouse.services.SmsSender;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,24 +18,23 @@ import java.util.List;
 @Log4j2
 @Controller
 @RequestMapping("/messages")
-public class EMailSenderController {
-
-    private final EMailSender eMailSender;
+public class SmsSenderController {
+    private final SmsSender smsSender;
     private final CustomerService customerService;
 
     @Autowired
-    public EMailSenderController(EMailSender eMailSender, CustomerService customerService) {
-        this.eMailSender = eMailSender;
+    public SmsSenderController(SmsSender smsSender, CustomerService customerService) {
+        this.smsSender = smsSender;
         this.customerService = customerService;
     }
 
-    @GetMapping("/emails")
+    @GetMapping("/sms")
     @ResponseBody
-    public ResponseEntity<?> sendHappyBirthdayEMailMessages() {
-        log.info("EMailSender Controller's sendHappyBirthdayEMailMessages method started working without params");
+    public ResponseEntity<?> sendHappyBirthdaySmsMessages() {
+        log.info("SMS Sender Controller's sendHappyBirthdaySmsMessages method started working without params");
         List<CustomerDto> customers = customerService.findCustomersByBirthDayDate();
         String congrats = "Happy Birthday!";
-        MessageResponse response = eMailSender.send(customers, congrats);
+        MessageResponse response = smsSender.send(customers, congrats);
         return new ResponseEntity<>(response.printResponse(), HttpStatus.OK);
     }
 }
