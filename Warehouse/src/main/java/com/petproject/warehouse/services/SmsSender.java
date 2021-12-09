@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Log4j2
-@Service
+
 public class SmsSender implements MessageSend {
     @Override
     public MessageResponse send(List<CustomerDto> recipients, String text) {
