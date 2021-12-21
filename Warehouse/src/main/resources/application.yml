@@ -6,3 +6,12 @@ spring:
     url: jdbc:postgresql://localhost:5432/warehouse
     username: postgres
     password: postgres
+
+app:
+  notifications:
+    email:
+      isChannelEnabled: true
+      name: "email"
+    sms:
+      isChannelEnabled: true
+      name: "sms"

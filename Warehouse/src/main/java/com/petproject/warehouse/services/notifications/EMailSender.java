@@ -1,14 +1,15 @@
-package com.petproject.warehouse.services;
+package com.petproject.warehouse.services.notifications;
 
 import com.petproject.warehouse.dto.CustomerDto;
+import com.petproject.warehouse.services.MessageCode;
+import com.petproject.warehouse.services.MessageResponse;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Log4j2
 
-public class EMailSender implements MessageSend {
+public class EMailSender implements NotificationSend {
     @Override
     public MessageResponse send(List<CustomerDto> recipients, String text) {
         for (CustomerDto recipient : recipients) {

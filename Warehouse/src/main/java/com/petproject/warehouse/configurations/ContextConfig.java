@@ -1,6 +1,9 @@
-package com.petproject.warehouse.services;
+package com.petproject.warehouse.configurations;
 
 import com.petproject.warehouse.dao.*;
+import com.petproject.warehouse.services.*;
+import com.petproject.warehouse.services.notifications.EMailSender;
+import com.petproject.warehouse.services.notifications.SmsSender;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

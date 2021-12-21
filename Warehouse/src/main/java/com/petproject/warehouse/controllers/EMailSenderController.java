@@ -2,7 +2,7 @@ package com.petproject.warehouse.controllers;
 
 import com.petproject.warehouse.dto.CustomerDto;
 import com.petproject.warehouse.services.CustomerService;
-import com.petproject.warehouse.services.EMailSender;
+import com.petproject.warehouse.services.notifications.EMailSender;
 import com.petproject.warehouse.services.MessageResponse;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
