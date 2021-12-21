@@ -10,8 +10,8 @@ spring:
 app:
   notifications:
     email:
-      isChannelEnabled: true
+      enabled: true
       name: "email"
     sms:
-      isChannelEnabled: true
+      enabled: true
       name: "sms"

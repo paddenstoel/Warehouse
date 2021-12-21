@@ -21,7 +21,7 @@ public class NotificationProperties {
     @Getter
     @Setter
     public static class Notification {
-        private boolean isChannelEnabled;
+        private boolean enabled;
         private String name;
     }
 }
