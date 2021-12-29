@@ -3,9 +3,14 @@ package com.petproject.warehouse.configurations;
 import com.petproject.warehouse.dao.*;
 import com.petproject.warehouse.services.*;
 import com.petproject.warehouse.services.notifications.EMailSender;
+import com.petproject.warehouse.services.notifications.NotificationSend;
 import com.petproject.warehouse.services.notifications.SmsSender;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Configuration
 public class ContextConfig {
@@ -57,6 +62,15 @@ public class ContextConfig {
     @Bean
     public SmsSender smsSender() {
         return new SmsSender();
+    }
+
+    @Bean
+    public Map<String, NotificationSend> notificationBeans(List<NotificationSend> notificationSendList) {
+        HashMap<String, NotificationSend> result = new HashMap<>();
+        for (NotificationSend notificationSend : notificationSendList) {
+            result.put(notificationSend.getClass().getName(), notificationSend);
+        }
+        return result;
     }
 
 }
